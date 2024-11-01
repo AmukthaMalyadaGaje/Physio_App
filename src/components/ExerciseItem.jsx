@@ -24,11 +24,11 @@ const ExerciseItem = ({ name, data }) => {
   };
 
   const handleDuplicate = () => {
-    const duplicatedExercise = { ...ex }; // Create a copy of the current exercise
+    const duplicatedExercise = { ...ex };
     setFetchedExercises((prevExercises) => [
       ...prevExercises,
       duplicatedExercise,
-    ]); // Add the duplicated exercise
+    ]);
   };
 
   return (
@@ -72,7 +72,7 @@ const ExerciseItem = ({ name, data }) => {
           <p className="p-4">Weight</p>
           <input
             type="number"
-            value={ex.weights}
+            value={ex.weight || ex.weights}
             onChange={(e) => handleChange(e, "weights")}
             className="p-2 border border-gray-300 rounded"
           />

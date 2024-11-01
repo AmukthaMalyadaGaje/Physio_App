@@ -1,27 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import { Plus, Minus } from "lucide-react";
-// import { useComboContext } from "./comboContext"; // Import the context
 import { useComboContext } from "../comboContext";
+
 const FrequencySettings = () => {
   const {
     combos,
     setCombos,
-    selectedDays,
+    selectedDays = [],
     setSelectedDays,
     frequency,
     setFrequency,
-  } = useComboContext(); // Use the context
-  // const [selectedDays, setSelectedDays] = useState([]);
-  // const [frequency, setFrequency] = useState(10);
+  } = useComboContext();
 
   const days = [
-    { key: "S", value: "Sunday" },
-    { key: "M", value: "Monday" },
-    { key: "T", value: "Tuesday" },
-    { key: "W", value: "Wednesday" },
-    { key: "T", value: "Thursday" },
-    { key: "F", value: "Friday" },
-    { key: "S", value: "Saturday" },
+    { key: "Su", value: "Sunday" },
+    { key: "Mo", value: "Monday" },
+    { key: "Tu", value: "Tuesday" },
+    { key: "We", value: "Wednesday" },
+    { key: "Th", value: "Thursday" },
+    { key: "Fr", value: "Friday" },
+    { key: "Sa", value: "Saturday" },
   ];
 
   const handleDayClick = (day) => {

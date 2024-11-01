@@ -1,8 +1,7 @@
 import React from "react";
-// import { useComboContext } from "./comboContext"; // Import the context
 import { useComboContext } from "../comboContext";
 const NotesSection = () => {
-  const { combos, setCombos } = useComboContext(); // Use the context
+  const { combos, setCombos, notes } = useComboContext();
 
   const handleNotesChange = (e) => {
     setCombos({
@@ -16,8 +15,9 @@ const NotesSection = () => {
       <label className="text-sm font-semibold">Therapist Notes</label>
       <textarea
         className="w-full p-2 border border-gray-300 rounded mt-1"
-        placeholder="Add Notes"
+        placeholder={notes}
         onChange={handleNotesChange}
+        value={notes}
       ></textarea>
     </div>
   );

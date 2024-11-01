@@ -4,6 +4,7 @@ import NotesSection from "./NotesSection";
 import FrequencySettings from "./FrequencySettings";
 import ComboNameModal from "./ComboNameModel";
 import { useComboContext } from "../comboContext";
+import ProgrammeForm from "./ProgrammeForm";
 const bodyPartCategories = [
   {
     category: "Lower Body",
@@ -67,12 +68,11 @@ const Dropdown = () => {
     setSelectedCategory(category);
   };
 
-  // Close dropdown when clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
-        setHoveredCategory(null); // Reset hovered category
+        setHoveredCategory(null);
       }
     };
 
@@ -107,19 +107,18 @@ const Dropdown = () => {
     setShowModal(true);
   };
 
-  // Function to fetch exercises from backend based on selected category and exercises
   const handleClearAll = () => {
-    setSelectedExercises([]); // Clear selected exercises
-    setSelectedCategory(null); // Clear selected category
+    setSelectedExercises([]);
+    setSelectedCategory(null);
   };
   const fetchExercises = async () => {
     try {
       console.log("Selcted Category:", selectedCategory);
       console.log(" Exercises:", selectedExercises);
       const response = await fetch("http://localhost:5000/api/exercises", {
-        method: "POST", // Using POST to send data
+        method: "POST",
         headers: {
-          "Content-Type": "application/json", // Setting content type to JSON
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           category: selectedCategory,
@@ -137,11 +136,10 @@ const Dropdown = () => {
     }
   };
 
-  // Function to handle category selection
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setHoveredCategory(null); // Close dropdown after selection
-    setIsDropdownOpen(false); // Close dropdown
+    setHoveredCategory(null);
+    setIsDropdownOpen(false);
   };
 
   return (
@@ -232,6 +230,7 @@ const Dropdown = () => {
             Clear All
           </button>
         </div>
+        <ProgrammeForm />
         <ExerciseList exercises={fetchedExercises} />
         <FrequencySettings />
         <NotesSection />

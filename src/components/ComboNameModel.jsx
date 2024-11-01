@@ -5,8 +5,8 @@ const ComboNameModal = ({ onClose, onSave }) => {
   const [comboName, setComboName] = useState("");
 
   const handleSave = () => {
-    onSave(comboName); // Pass the combo name to the parent component
-    onClose(); // Close the modal after saving
+    onSave(comboName);
+    onClose();
   };
 
   return (
