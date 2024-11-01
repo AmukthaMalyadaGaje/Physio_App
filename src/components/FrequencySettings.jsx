@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import { Plus, Minus } from "lucide-react";
-
-const FrequencySettings = ({ combos, setCombos }) => {
-  const [selectedDays, setSelectedDays] = useState([]);
-  const [frequency, setFrequency] = useState(10);
+// import { useComboContext } from "./comboContext"; // Import the context
+import { useComboContext } from "../comboContext";
+const FrequencySettings = () => {
+  const {
+    combos,
+    setCombos,
+    selectedDays,
+    setSelectedDays,
+    frequency,
+    setFrequency,
+  } = useComboContext(); // Use the context
+  // const [selectedDays, setSelectedDays] = useState([]);
+  // const [frequency, setFrequency] = useState(10);
 
   const days = [
     { key: "S", value: "Sunday" },

@@ -1,6 +1,9 @@
 import React from "react";
+// import { useComboContext } from "./comboContext"; // Import the context
+import { useComboContext } from "../comboContext";
+const NotesSection = () => {
+  const { combos, setCombos } = useComboContext(); // Use the context
 
-const NotesSection = ({ combos, setCombos }) => {
   const handleNotesChange = (e) => {
     setCombos({
       ...combos,

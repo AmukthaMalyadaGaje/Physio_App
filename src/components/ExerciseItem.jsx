@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useComboContext } from "../comboContext";
 
-const ExerciseItem = ({ name, data, setCombos, exercises }) => {
-  // Initialize `ex` state with `data`
+const ExerciseItem = ({ name, data }) => {
+  const { fetchedExercises, setFetchedExercises, combos, setCombos } =
+    useComboContext();
   const [ex, setEx] = useState(data);
 
-  // `handleChange` function to update specific fields in the `ex` state
   const handleChange = (e, key) => {
     const value = e.target.value;
     const updatedEx = {
@@ -13,7 +14,6 @@ const ExerciseItem = ({ name, data, setCombos, exercises }) => {
     };
     setEx(updatedEx);
 
-    // Update `combos` state with the modified exercise data
     setCombos((prevCombos) => ({
       ...prevCombos,
       exercises: {
@@ -23,14 +23,23 @@ const ExerciseItem = ({ name, data, setCombos, exercises }) => {
     }));
   };
 
+  const handleDuplicate = () => {
+    const duplicatedExercise = { ...ex }; // Create a copy of the current exercise
+    setFetchedExercises((prevExercises) => [
+      ...prevExercises,
+      duplicatedExercise,
+    ]); // Add the duplicated exercise
+  };
+
   return (
     <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg mb-2">
       <div className="flex justify-between">
         <span className="font-semibold">{name}</span>
-        <button className="text-blue-500">Duplicate</button>
+        <button onClick={handleDuplicate} className="text-blue-500">
+          Duplicate
+        </button>
       </div>
 
-      {/* Exercise settings for Sets, Reps, Hold Time, and Weight */}
       <div className="flex justify-evenly mt-2">
         <div className="flex justify-between px-3">
           <p className="p-4">Sets</p>

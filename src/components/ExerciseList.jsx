@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import ExerciseItem from "./ExerciseItem";
+import { useComboContext } from "../comboContext";
 
-const ExerciseList = ({ exercises, combos, setCombos }) => {
-  // const exercises = ["Knee Bends", "Forward Lunge", "VOXR1"];
+const ExerciseList = () => {
+  const { fetchedExercises = [], setFetchedExercises } = useComboContext(); // Default to an empty array
 
   return (
     <div className="mt-4">
-      {exercises.map((exercise) => (
-        <ExerciseItem
-          key={exercise.name}
-          name={exercise.name}
-          data={exercise}
-          combos={combos}
-          setCombos={setCombos}
-        />
-      ))}
+      {Array.isArray(fetchedExercises) &&
+        fetchedExercises.map((exercise) => (
+          <ExerciseItem
+            key={exercise._id}
+            name={exercise.name}
+            data={exercise}
+          />
+        ))}
     </div>
   );
 };

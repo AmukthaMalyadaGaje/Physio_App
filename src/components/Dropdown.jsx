@@ -3,7 +3,7 @@ import ExerciseList from "./ExerciseList";
 import NotesSection from "./NotesSection";
 import FrequencySettings from "./FrequencySettings";
 import ComboNameModal from "./ComboNameModel";
-
+import { useComboContext } from "../comboContext";
 const bodyPartCategories = [
   {
     category: "Lower Body",
@@ -46,18 +46,19 @@ const bodyPartCategories = [
 ];
 
 const Dropdown = () => {
-  const [selectedExercises, setSelectedExercises] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(""); // State for selected category
+  const {
+    selectedExercises,
+    setSelectedExercises,
+    selectedCategory,
+    setSelectedCategory,
+    fetchedExercises,
+    setFetchedExercises,
+    combos,
+    setCombos,
+  } = useComboContext(); // Use the context
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
-  const [fetchedExercises, setFetchedExercises] = useState([]);
-  const [combos, setCombos] = useState({
-    exercises: {},
-    days: [],
-    frequency: "",
-    notes: "",
-    name: "",
-  });
   const [showModal, setShowModal] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -107,6 +108,10 @@ const Dropdown = () => {
   };
 
   // Function to fetch exercises from backend based on selected category and exercises
+  const handleClearAll = () => {
+    setSelectedExercises([]); // Clear selected exercises
+    setSelectedCategory(null); // Clear selected category
+  };
   const fetchExercises = async () => {
     try {
       console.log("Selcted Category:", selectedCategory);
@@ -220,19 +225,20 @@ const Dropdown = () => {
           >
             Fetch Exercises
           </button>
+          <button
+            onClick={handleClearAll}
+            className="m-6 p-3 text-1xl font-semibold bg-red-300 rounded-lg shadow hover:bg-red-400 focus:outline-none"
+          >
+            Clear All
+          </button>
         </div>
-        <ExerciseList
-          exercises={fetchedExercises}
-          setFetchedExercises={setFetchedExercises}
-          combos={combos}
-          setCombos={setCombos}
-        />
-        <FrequencySettings combos={combos} setCombos={setCombos} />
-        <NotesSection combos={combos} setCombos={setCombos} />
+        <ExerciseList exercises={fetchedExercises} />
+        <FrequencySettings />
+        <NotesSection />
 
         <div className="mt-4 flex gap-4">
           <button
-            onClick={handleSaveAsComboClick}
+            onClick={() => setShowModal(true)}
             className="bg-blue-500 text-white px-4 py-2 rounded"
           >
             Save as Combo
